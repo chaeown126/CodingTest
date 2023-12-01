@@ -1,1 +1,1 @@
-## BOJ 풀이 기록
+## BaekJoon Online Judge 풀이 기록
