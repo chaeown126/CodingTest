@@ -7,8 +7,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken()), m = Integer.parseInt(st.nextToken());
         int pokemonIdx = 0;
         Map<Integer, String> pokemonMap1 = new HashMap<>();
         Map<String, Integer> pokemonMap2 = new HashMap<>();
@@ -24,9 +23,9 @@ public class Main {
             String tempStr = br.readLine();
             if(isInteger(tempStr)){ // 숫자일 경우
                 pokemonIdx = Integer.parseInt(tempStr);
-                sb.append(pokemonMap1.get(pokemonIdx) + "\n");
+                sb.append(pokemonMap1.get(pokemonIdx)).append("\n");
             } else { // 문자열일 경우
-                sb.append(pokemonMap2.get(tempStr) + "\n");
+                sb.append(pokemonMap2.get(tempStr)).append("\n");
             }
         }
         System.out.print(sb);
