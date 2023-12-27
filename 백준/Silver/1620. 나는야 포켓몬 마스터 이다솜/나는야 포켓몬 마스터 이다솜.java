@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int n = Integer.parseInt(st.nextToken());
@@ -33,12 +33,11 @@ public class Main {
             String tempStr = br.readLine();
             if(isInteger(tempStr)){ // 숫자일 경우
                 pokemonIdx = Integer.parseInt(tempStr);
-                bw.write(pokemonMap1.get(pokemonIdx) + "\n");
+                sb.append(pokemonMap1.get(pokemonIdx) + "\n");
             } else { // 문자열일 경우
-                bw.write(pokemonMap2.get(tempStr) + "\n");
+                sb.append(pokemonMap2.get(tempStr) + "\n");
             }
         }
-        bw.flush();
-        bw.close();
+        System.out.print(sb);
     }
 }
