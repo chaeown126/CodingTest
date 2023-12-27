@@ -21,21 +21,12 @@ public class Main {
 
         for(int i = 0; i < m; i++) {
             String tempStr = br.readLine();
-            if(isInteger(tempStr)){ // 숫자일 경우
-                pokemonIdx = Integer.parseInt(tempStr);
-                sb.append(pokemonMap1.get(pokemonIdx)).append("\n");
-            } else { // 문자열일 경우
-                sb.append(pokemonMap2.get(tempStr)).append("\n");
+            if(49 <= tempStr.charAt(0) && tempStr.charAt(0) <= 57) {
+                sb.append(pokemonMap1.get(Integer.parseInt(tempStr)) + "\n");
+            } else {
+                sb.append(pokemonMap2.get(tempStr) + "\n");
             }
         }
         System.out.print(sb);
-    }
-    public static boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
