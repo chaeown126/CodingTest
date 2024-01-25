@@ -9,8 +9,7 @@ public class Main {
 
         int[] arr = new int[n];
         for(int i = 0; i < n; i++) {
-            int temp = Integer.parseInt(br.readLine());
-            arr[i] = temp;
+            arr[i] = Integer.parseInt(br.readLine());
         }
         Arrays.sort(arr);
         
