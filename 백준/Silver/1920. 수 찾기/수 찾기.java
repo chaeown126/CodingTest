@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        StringTokenizer st = null;
+        StringTokenizer st;
         int result = 0;
 
         int n = Integer.parseInt(br.readLine());
@@ -24,14 +24,13 @@ public class Main {
         System.out.print(sb);
     }
 
-    public static int binarySearch(int[] arrA, int target, int start, int end) {
-        if(start > end)
-            return 0;
+    private static int binarySearch(int[] arrA, int target, int start, int end) {
+        if(start > end)    return 0;
         int mid = (start + end) / 2;
 
-        if(arrA[mid] == target)
+        if(arrA[mid] == target) {
             return 1;
-        if(arrA[mid] < target) {
+        } else if(arrA[mid] < target) {
             return binarySearch(arrA, target, mid + 1, end);
         } else {
             return binarySearch(arrA, target, start, mid - 1);
