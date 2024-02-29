@@ -32,8 +32,10 @@ public class Main {
                 if(count > 0)   complexArr.add(count);
             }
         }
-        System.out.println(complexArr.size());
-        complexArr.stream().sorted().forEach(System.out::println);
+        sb.append(complexArr.size()).append("\n");
+        complexArr.stream().sorted().forEach(x -> sb.append(x).append("\n"));
+
+        System.out.print(sb);
     }
 
     static void DFS(int x, int y) {
