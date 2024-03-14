@@ -30,3 +30,61 @@
 
  <p>각 테스트 케이스에 대해서 진영 주식회사가 선발할 수 있는 신입사원의 최대 인원수를 한 줄에 하나씩 출력한다.</p>
 
+---
+### 소스 설명
+1. 점수가 아닌 __순위__ 임을 이해할 것
+2. 1차 서류심사 순위별로 __정렬__ 후 2차 면접 결과에 대해 __그리디 알고리즘__ 수행
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    static int T, N; // T : 테스트케이스, N : 테스트케이스 별 인원 수
+    static int[][] scoreArr; // 1차, 2차 순위가 담길 2차원 배열
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        T = Integer.parseInt(st.nextToken()); // 테스트케이스 입력
+        // 테스트케이스만큼 반복문 진행 (최대 20으로 시간/메모리는 크게 차지하지 않을 것으로 보임)
+        for(int i = 0; i < T; i++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            scoreArr = new int[N][2]; // 인원 수(N)별로 1차와 2차 점수 총 두 값만 들어가므로 사이즈는 [N][2]로 지정
+            for(int j = 0; j < N; j++) {
+                st = new StringTokenizer(br.readLine());
+                scoreArr[j][0] = Integer.parseInt(st.nextToken()); // 1차 결과 순위
+                scoreArr[j][1] = Integer.parseInt(st.nextToken()); // 2차 결과 순위
+            }
+            sb.append(empSelect(scoreArr)).append("\n");
+        }
+        System.out.print(sb);
+    }
+
+    // 정렬 + 그리디 알고리즘 수행 함수
+    private static int empSelect(int[][] scoreArr) {
+        // 1차 결과에 대해 오름차순으로 정렬
+        Arrays.sort(scoreArr, (o1, o2) -> {
+            return o1[0] - o2[0];
+        });
+        // 1차 1위는 반드시 합격이므로 count = 1로 지정
+        // min의 초기값은 1차 1위의 2차 순위값을 기준으로 함, 이미 1차 순위별로 정렬되어 있기 때문에 2차까지 낮을 경우 count를 하지 않으면 되기 때문
+        int count = 1, min = scoreArr[0][1];
+
+        for(int i = 1; i < N; i++) {
+            // 2차 순위가 min 값보다 더 작으면(순위 상으로는 높은 의미) count++, min의 값을 수정
+            if(scoreArr[i][1] < min) {
+                count++;
+                min = scoreArr[i][1];
+            }
+        }
+        return count;
+    }
+}
+
+```
+
+정렬보다는 그리디 알고리즘 중심이어서 살짝 당황스러웠던 문제,,   
+그리디 알고리즘에도 얼른 익숙해져야겠다 
