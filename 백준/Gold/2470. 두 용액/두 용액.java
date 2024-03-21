@@ -45,7 +45,7 @@ public class Main {
                 result.clear();
                 result.add(solutions[start]);
                 result.add(solutions[end]);
-                min = Math.abs(Math.min(min, sum));
+                min = Math.abs(sum);
             }
 
             if(target > sum)

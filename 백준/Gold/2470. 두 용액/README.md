@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 29164 KB, 시간: 388 ms
+메모리: 29172 KB, 시간: 384 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2024년 3월 21일 17:12:11
+2024년 3월 21일 17:21:43
 
 ### 문제 설명
 
@@ -32,70 +32,3 @@
 
  <p>첫째 줄에 특성값이 0에 가장 가까운 용액을 만들어내는 두 용액의 특성값을 출력한다. 출력해야 하는 두 용액은 특성값의 오름차순으로 출력한다. 특성값이 0에 가장 가까운 용액을 만들어내는 경우가 두 개 이상일 경우에는 그 중 아무것이나 하나를 출력한다.</p>
 
----
-### 소스 설명
-정렬이라는 태그만 보고 풀기 시작했는데.. 정렬은 거들 뿐이었던 문제 🥲 (언제까지 속고만 살래..)   
-분류에는 이분 탐색도 있지만 이분 탐색은 쓰지 않고 투 포인터까지만 썼다!   
-
-```java
-import java.util.*;
-import java.io.*;
-
-public class _2470 {
-    static int N;
-    static int[] solutions;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
-
-        N = Integer.parseInt(st.nextToken());
-        solutions = new int[N];
-        st = new StringTokenizer(br.readLine());
-
-        for(int i = 0; i < N; i++) {
-            solutions[i] = Integer.parseInt(st.nextToken());
-        }
-        Arrays.sort(solutions);
-
-        ArrayList<Integer> answer = findTarget(solutions);
-        sb.append(answer.get(0)).append(" ").append(answer.get(1));
-
-        System.out.print(sb);
-
-    }
-
-    // 투 포인터 알고리즘 시작
-    private static ArrayList<Integer> findTarget(int[] solutions) {
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        int start = 0, end = solutions.length - 1; // start, end 설정
-        int target = 0, sum = 0, min = 2000000000; // sum은 실제 값 계산용, min은 0과의 오차값 계산용
-        while(start < end) {
-            sum = solutions[start] + solutions[end];
-
-            if(sum == 0) { // 0일 경우엔 함수를 종료하고 바로 return 하도록 함
-                result.clear();
-                result.add(solutions[start]);
-                result.add(solutions[end]);
-                break;
-            }
-
-            // sum의 절댓값이 min보다 작을 경우, 결과를 재입력
-            if(Math.abs(sum) < min){
-                result.clear();
-                result.add(solutions[start]);
-                result.add(solutions[end]);
-                min = Math.abs(sum); // min도 재입력
-            }
-
-            // target인 0이 sum보다 클 경우
-            if(target > sum)
-                start += 1; // 보다 큰 값을 더하기 위하여 start ++
-            else
-                end -= 1; // 보다 작은 값을 더하기 위하여 end --
-        }
-
-        return result;
-    }
-}
-```
