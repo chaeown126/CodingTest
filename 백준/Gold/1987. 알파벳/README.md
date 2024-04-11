@@ -30,3 +30,63 @@
 
  <p>첫째 줄에 말이 지날 수 있는 최대의 칸 수를 출력한다.</p>
 
+---
+### 소스 설명
+이번에 문제를 풀면서 가장 신기했던 건   
+   
+1. 상하좌우 변경하는 소스
+2. boolean 배열을 int처럼 활용하기
+   
+이걸 이제야 알았다니.. 꽤나 충격적이었다    
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static int R, C, answer = 0;
+    static char[][] board;
+    static boolean[] alphabet;
+    // 상하좌우 변경 용도
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1};
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        R = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+        board = new char[R][C];
+
+        for(int i = 0; i < R; i++) {
+            String str = br.readLine();
+            for(int j = 0; j < C; j++) {
+                board[i][j] = str.charAt(j);
+            }
+        }
+
+        alphabet = new boolean[26]; // 알파벳의 개수가 26개이므로 사이즈는 26
+        alphabet[board[0][0] - 'A'] = true; // (0, 0)은 무조건 방문하기 때문에 미리 true, 'A'를 뺌으로써 해당하는 알파벳 번째에 true 값 넣을 수 있음
+        backTracking(0, 0, 1); // (0, 0)은 무조건 방문하기 때문에 count는 1부터 시작 
+
+        sb.append(answer);
+        System.out.print(sb);
+    }
+
+    private static void backTracking(int x, int y, int count) {
+        answer = Math.max(answer, count); // 백트래킹 수행할 때마다 바로 count 갱신!!
+        for(int i = 0; i < 4; i++) { // 상하좌우 확인 for문 
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if(nx >= 0 && nx < R && ny >= 0 && ny < C && (!alphabet[board[nx][ny] - 'A'])) {
+                alphabet[board[nx][ny] - 'A'] = true; // 방문처리 
+                backTracking(nx, ny, count + 1); // 방문했기 때문에 count+1 로 재귀 
+                alphabet[board[nx][ny] - 'A'] = false; // 다시 빠져나오면서 방문처리 됐던 알파벳들을 다시 false로 만들어 백트래킹함 
+
+            }
+        }
+    }
+}
+```
+백트래킹 문제를 많이 풀자 ... 🥲 
