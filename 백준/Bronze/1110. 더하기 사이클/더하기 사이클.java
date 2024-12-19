@@ -5,26 +5,25 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
-        final String N = br.readLine(); // 첫 번째로 시작할 수
-        String curNum = N, temp = "-1";
-        int count = 0;
+        int N = Integer.parseInt(br.readLine());
+        br.close();
 
-        while(!N.equals(temp)) {
-            String addArr[] = new String[2];
-            if(Integer.parseInt(curNum) >= 10) {
-                addArr = curNum.split("");
-            } else {
-                addArr[0] = "0";
-                addArr[1] = curNum;
-            }
-
-            int sum = Integer.parseInt(addArr[0]) + Integer.parseInt(addArr[1]);
-            if(sum >= 10)   sum = Integer.parseInt(Integer.toString(sum).split("")[1]);
-            temp = (addArr[1].equals("0") ? "" : addArr[1]) + "" + sum;
-            curNum = temp;
-            count++;
-        }
-        sb.append(count);
+        sb.append(cycle(N));
         System.out.print(sb);
+    }
+
+    public static int cycle(int num) {
+        int cycle = 0;
+        int start = num;
+
+        do {
+            int x = (start % 10) * 10; // 1의 자리가 10의 자리가 됨
+            int y = ((start / 10) + (start % 10)) % 10; // 합계의 1의 자리만 남김
+            start = x + y;
+
+            cycle++;
+        } while(start != num);
+
+        return cycle;
     }
 }
