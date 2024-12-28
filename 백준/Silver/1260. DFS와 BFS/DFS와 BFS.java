@@ -5,16 +5,14 @@ public class Main {
     static int N, M, V;
     static List<Integer>[] adj;
     static boolean[] visited;
-    static String result = "";
+    static StringBuilder sb = new StringBuilder();
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
 
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         V = Integer.parseInt(st.nextToken());
-
         adj = new ArrayList[N+1];
 
         for(int i = 1; i <= N; i++) {
@@ -36,12 +34,9 @@ public class Main {
 
         visited = new boolean[N+1];
         dfs(V);
-        sb.append(result).append("\n");
-
-        result = "";
+        sb.append("\n");
         visited = new boolean[N+1];
         bfs(V);
-        sb.append(result);
 
         System.out.print(sb);
     }
@@ -49,7 +44,7 @@ public class Main {
     static void dfs(int num) {
         if(!visited[num]) {
             visited[num] = true;
-            result += num + " ";
+            sb.append(num).append(" ");
             for(int next : adj[num]) {
                 dfs(next);
             }
@@ -60,14 +55,14 @@ public class Main {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(num);
         visited[num] = true;
-        result += num + " ";
+        sb.append(num).append(" ");
 
         while(!queue.isEmpty()) {
             int curNum = queue.poll();
             for(int next : adj[curNum]) {
                 if(!visited[next]) {
                     queue.add(next);
-                    result += next + " ";
+                    sb.append(next).append(" ");
                     visited[next] = true;
                 }
             }
